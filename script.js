@@ -85,7 +85,6 @@ function gameLoop() {
         snake.pop(); // Remove a cauda se não comeu
     }
 
-    
     // Verifica colisões
     if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || collision(head, snake)) {
         clearInterval(game); // Para o jogo se a cobra colidir com as bordas ou com ela mesma
@@ -119,8 +118,6 @@ function gameLoop() {
     ctx.fillStyle = 'black'; // Cor do texto
     ctx.font = 'bold 12px Arial'; // Define fonte e tamanho
     ctx.fillText('Dalmiran', food.x, food.y - 5); // Desenha o nome acima da comida
-
-    
 }
 
 // Controle de teclas
@@ -151,7 +148,24 @@ canvas.addEventListener('touchstart', (event) => {
     }
 });
 
-// Botões
+// Controle dos botões de movimento
+document.getElementById('moveLeft').addEventListener('click', () => {
+    if (direction !== 'RIGHT') direction = 'LEFT';
+});
+
+document.getElementById('moveUp').addEventListener('click', () => {
+    if (direction !== 'DOWN') direction = 'UP';
+});
+
+document.getElementById('moveRight').addEventListener('click', () => {
+    if (direction !== 'LEFT') direction = 'RIGHT';
+});
+
+document.getElementById('moveDown').addEventListener('click', () => {
+    if (direction !== 'UP') direction = 'DOWN';
+});
+
+// Botões de controle
 document.getElementById('startBtn').addEventListener('click', initGame);
 document.getElementById('pauseBtn').addEventListener('click', () => {
     isPaused = !isPaused; // Alterna o estado de pausa
@@ -169,5 +183,35 @@ window.onload = () => {
     initGame(); // Inicia o jogo
 };
 
-// Redimensiona o canvas quando a janela é redimensionada
+// Função para aplicar as modificações nos botões
+function applyButtonStyles() {
+    const buttonSize = document.getElementById('buttonSize').value;
+    const buttonX = document.getElementById('buttonX').value;
+    const buttonY = document.getElementById('buttonY').value;
+
+    // Seleciona todos os botões de movimento
+    const buttons = [
+        document.getElementById('moveLeft'),
+        document.getElementById('moveRight'),
+        document.getElementById('moveUp'),
+        document.getElementById('moveDown'),
+    ];
+
+    // Aplica o tamanho e a posição nos botões
+    buttons.forEach(button => {
+        button.style.width = `${buttonSize}px`;
+        button.style.height = `${buttonSize}px`;
+        button.style.position = 'absolute'; // Definindo como absoluto para posicionar corretamente
+        button.style.left = `${parseInt(buttonX)}px`; // Posição X
+        button.style.top = `${parseInt(buttonY)}px`; // Posição Y
+        button.style.opacity = '0.5'; // Torna os botões semi-transparentes
+        button.style.backgroundColor = 'transparent'; // Botão transparente
+    });
+}
+
+// Adiciona o evento ao botão "Aplicar"
+document.getElementById('applyBtn').addEventListener('click', applyButtonStyles);
+
+
+// Redimensiona o canvas quando a janela for redimensionada
 window.onresize = resizeCanvas;

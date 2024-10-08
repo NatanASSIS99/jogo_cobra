@@ -5,8 +5,8 @@ body {
     justify-content: center;
     height: 100vh;
     background-color: #1e3c72; /* Azul escuro para o fundo do corpo */
-    color: white;
-    font-family: Arial, sans-serif;
+    color: white;    
+    font-family: 'Roboto', sans-serif; /* Exemplo de fonte */
     margin: 0;
 }
 
@@ -14,27 +14,35 @@ body {
     display: flex;
     align-items: center;
     padding: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra ao redor do contêiner */
-    border-radius: 15px; /* Arredonda os cantos do contêiner */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    position: relative; /* Para o posicionamento absoluto dos botões */
 }
 
+/* Estilos do canvas */
 #gameCanvas {
     border: 1px solid white;
-    background: linear-gradient(135deg, #2a69ac, #4ecdc4); /* Gradiente azul e verde claro */
+    background: linear-gradient(135deg, #2a69ac, #4ecdc4);
+    transition: box-shadow 0.3s; /* Transição suave para a sombra */
 }
 
+#gameCanvas:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* Estilos dos controles */
 .controls {
-    margin-left: 20px; /* Espaço entre o canvas e os controles */
+    margin-left: 20px;
     display: flex;
-    flex-direction: column; /* Organiza os botões verticalmente */
+    flex-direction: column;
     align-items: flex-start;
-    background-color: rgba(255, 255, 255, 0.1); /* Fundo transparente para os controles */
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 10px;
-    border-radius: 5px; /* Arredonda os cantos dos controles */
+    border-radius: 5px;
 }
 
 button {
-    margin: 10px 0; /* Espaço entre os botões */
+    margin: 10px 0;
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
@@ -48,7 +56,73 @@ button:hover {
     background-color: #21a1f1;
 }
 
+button:focus {
+    outline: 2px solid #21a1f1; /* Estilo de foco para acessibilidade */
+}
+
 #score {
-    font-size: 20px; /* Aumenta o tamanho da pontuação */
-    margin-bottom: 10px; /* Espaço entre a pontuação e os botões */
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Estilos dos botões de controle dentro do canvas */
+#moveLeft, #moveRight, #moveUp, #moveDown {
+    position: absolute; /* Para posicionar os botões em relação ao canvas */
+    opacity: 0.5; /* Torna os botões um pouco transparentes */
+    width: 50px; /* Largura dos botões */
+    height: 50px; /* Altura dos botões */
+}
+
+#moveLeft {
+    left: 10px; /* Posição esquerda */
+    bottom: 20px; /* Posição acima da parte inferior */
+}
+
+#moveRight {
+    right: 10px; /* Posição direita */
+    bottom: 20px; /* Posição acima da parte inferior */
+}
+
+#moveUp {
+    left: 50%; /* Centraliza horizontalmente */
+    bottom: 70px; /* Posição acima da parte inferior */
+    transform: translateX(-50%); /* Ajusta para centralizar corretamente */
+}
+
+#moveDown {
+    left: 50%; /* Centraliza horizontalmente */
+    bottom: 10px; /* Posição acima da parte inferior */
+    transform: translateX(-50%); /* Ajusta para centralizar corretamente */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .game-container {
+        flex-direction: column; /* Muda a direção do contêiner para coluna */
+        align-items: center; /* Centraliza os elementos */
+    }
+
+    .controls {
+        margin-left: 0; /* Remove a margem à esquerda nos dispositivos móveis */
+        margin-top: 10px; /* Adiciona espaço acima dos controles */
+    }
+
+    button {
+        width: 100%; /* Botões ocupam toda a largura do contêiner */
+        font-size: 20px; /* Aumenta o tamanho da fonte dos botões */
+    }
+
+    #gameCanvas {
+        width: 100%; /* Canvas ocupa toda a largura disponível */
+        height: auto; /* Altura automática para manter a proporção */
+    }
+
+    .move-button {
+        position: absolute; /* Para que os botões possam ser posicionados em relação ao seu container */
+        opacity: 0.5; /* Para que sejam transparentes */
+        background-color: transparent; /* Botões com fundo transparente */
+    }
+    
+
+    
 }
